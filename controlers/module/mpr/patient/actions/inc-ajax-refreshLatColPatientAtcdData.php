@@ -2,7 +2,7 @@
 /*
  * This file is part of MedShakeEHR.
  *
- * Copyright (c) 2017
+ * Copyright (c) 2019
  * Bertrand Boutillier <b.boutillier@gmail.com>
  * http://www.medshake.net
  *
