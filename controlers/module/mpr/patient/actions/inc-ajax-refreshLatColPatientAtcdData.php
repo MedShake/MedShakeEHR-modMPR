@@ -34,6 +34,9 @@
  $p['page']['formLat']=$formLat->getForm();
  $p['page']['formJavascript']['mprATCD']=$formLat->getFormJavascript();
 
+ //les ALD du patient
+$p['page']['patient']['ALD']=$patient->getALD();
+
  // si LAP activé : allergie et atcd structurés
  if($p['config']['utiliserLap'] == 'true') {
 
