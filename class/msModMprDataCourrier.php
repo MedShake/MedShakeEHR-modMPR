@@ -54,7 +54,7 @@ class msModMprDataCourrier
       }
       // résoudre le problème de l'IMC
       unset($d['imc']);
-      if(isset($d['poids'],$d['taillePatient'])) $d['imc']=msModMedgeCalcMed::imc($d['poids'],$d['taillePatient']);
+      if(isset($d['poids'],$d['taillePatient'])) $d['imc']=msModBaseCalcMed::imc($d['poids'],$d['taillePatient']);
 
     }
 
