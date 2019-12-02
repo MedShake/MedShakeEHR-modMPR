@@ -1,0 +1,47 @@
+{#
+ # This file is part of MedShakeEHR.
+ #
+ # Copyright (c) 2019
+ # Bertrand Boutillier <b.boutillier@gmail.com>
+ # http://www.medshake.net
+ #
+ # MedShakeEHR is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # any later version.
+ #
+ # MedShakeEHR is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with MedShakeEHR.  If not, see <http://www.gnu.org/licenses/>.
+ #/
+
+/##
+ # Template > models4print : compte-rendu de consultation MPR 
+ #
+ # @author Bertrand Boutillier <b.boutillier@gmail.com>
+ #}
+
+{% set tag = page.courrier %}
+
+<p style="text-align : right;">New York, le {{ tag.date|date("d/m/Y") }}</p>
+
+<h2 style="text-align : center; margin-bottom: 20pt;">Compte-rendu de consultation<br>{{ tag.identiteCompleteTitreLongDdn }}</h2>
+
+<h3>Motif de consultation</h3>
+
+<p>{{ tag.mprCsStdMotif|nl2br }}</p>
+
+<h3>Examen</h3>
+
+<p>{{ tag.mprCsStdExamen|nl2br }}</p>
+
+<h3>Conclusion</h3>
+
+<p>{{ tag.mprCsStdConclusion|nl2br }}</p>
+
+<br><br><br><br>
+<p style="text-align:right">{{ tag.UtilisateurActif_identiteUsuelleTitre }}</p>

@@ -1,0 +1,119 @@
+{#
+ # This file is part of MedShakeEHR.
+ #
+ # Copyright (c) 2019
+ # Bertrand Boutillier <b.boutillier@gmail.com>
+ # http://www.medshake.net
+ #
+ # MedShakeEHR is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # any later version.
+ #
+ # MedShakeEHR is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with MedShakeEHR.  If not, see <http://www.gnu.org/licenses/>.
+ #/
+
+/##
+ # Template > models4print : compte-rendu de consultation scoliose (suivi) 
+ #
+ # @author Bertrand Boutillier <b.boutillier@gmail.com>
+ #}
+
+{% set tag = page.courrier %}
+
+<p style="text-align : right;">New York, le {{ tag.date|date("d/m/Y") }}</p>
+
+<h2 style="text-align : center; margin-bottom: 20pt;">Compte-rendu de consultation de suivi pour scoliose<br>{{ tag.identiteCompleteTitreLongDdn }}</h2>
+
+<h2>Examen clinique</h2>
+
+{% if tag.mprCsScoSuiEvolution is not empty %}
+<p>
+<span class="gras">Évolution depuis la dernière consultation</span> :<br>
+{{ tag.mprCsScoSuiEvolution|nl2br }}</p><br>
+{% endif %}
+
+<p>
+<span class="gras">Poids</span> : {{ tag.poids }} kg - <span class="gras">Taille</span> : {{ tag.taillePatient }} cm - <span class="gras">IMC</span> : {{ tag.imc }} kg/m² <br>
+
+<span class="gras">Ceinture scapulaire</span> :<br>
+- frontal : {% if tag.val_mprCsScoSuiCeintureScaFrontal == "bh" %}bascule horaire{% elseif tag.val_mprCsScoSuiCeintureScaFrontal == "bah" %}bascule antihoraire{% elseif tag.val_mprCsScoSuiCeintureScaFrontal == "e" %}équilibrée{% else %}- non renseigné -{% endif %}<br>
+- horizontal : {% if tag.val_mprCsScoSuiCeintureScaHorizon == "rh" %}rotation horaire{% elseif tag.val_mprCsScoSuiCeintureScaHorizon == "rah" %}rotation antihoraire{% elseif tag.val_mprCsScoSuiCeintureScaHorizon == "e" %}équilibrée{% else %}- non renseigné -{% endif %}<br>
+
+<span class="gras">Bassin</span> : <br>
+- frontal : {% if tag.val_mprCsScoSuiBassinFrontal == "bh" %}bascule horaire{% elseif tag.val_mprCsScoSuiBassinFrontal == "bah" %}bascule antihoraire{% elseif tag.val_mprCsScoSuiBassinFrontal == "e" %}équilibré{% else %}- non renseigné -{% endif %}<br>
+- horizontal : {% if tag.val_mprCsScoSuiBassinHorizontal == "bh" %}bascule horaire{% elseif tag.val_mprCsScoSuiBassinHorizontal == "bah" %}bascule antihoraire{% elseif tag.val_mprCsScoSuiBassinHorizontal == "e" %}équilibré{% else %}- non renseigné -{% endif %}<br>
+
+<span class="gras">Pli de la taille</span> :
+{% if tag.val_mprCsScoSuiPliTaille == "g" %}plus accentué à gauche{% elseif tag.val_mprCsScoSuiPliTaille == "d" %}plus accentué à droite{% elseif tag.val_mprCsScoSuiPliTaille == "n" %}pas d’accentuation{% else %}- non renseigné -{% endif %}<br>
+
+<span class="gras">Équilibre frontal</span> : {{ tag.mprCsScoSuiEquiFrontalC7PliFessierMM }} mm {% if tag.val_mprCsScoSuiEquiFrontalC7PliFessier == "g" %}à gauche{% elseif tag.val_mprCsScoSuiEquiFrontalC7PliFessier == "bah" %}à droite{% elseif tag.val_mprCsScoSuiEquiFrontalC7PliFessier == "e" %}équilibré{% else %}- non renseigné -{% endif %}<br>
+<span class="gras">Équilibre sagittal C7</span> : {{ tag.mprCsScoSuiEquiSagittalC7 }} mm - <span class="gras">T8</span> : {{ tag.mprCsScoSuiEquiSagittalT8 }} mm - <span class="gras">L2</span> : {{ tag.mprCsScoSuiEquiSagittalL2 }} mm - <span class="gras">S2</span> : {{ tag.mprCsScoSuiEquiSagittalS2 }} mm<br>
+
+{% if tag.mprCsScoSuiGib1MM > 0 and tag.mprCsScoSuiGib2MM > 0 %}<span class="gras">Gibbosités</span> :<br>
+  - {% if tag.val_mprCsScoSuiGib1Topo == "t" %}thoracique{% elseif tag.val_mprCsScoSuiGib1Topo == "l" %}lombaire{% elseif tag.val_mprCsScoSuiGib1Topo == "tl" %}thoraco-lombaire{% elseif tag.val_mprCsScoSuiGib1Topo == "n" %}pas de gibbosité{% else %}- non renseigné -{% endif %} {% if tag.val_mprCsScoSuiGib1Lat == "g" %}gauche{% elseif tag.val_mprCsScoSuiGib1Lat == "d" %}droite{% else %}- non renseigné -{% endif %} {{ tag.mprCsScoSuiGib1MM }} mm<br>
+  - {% if tag.val_mprCsScoSuiGib2Topo == "t" %}thoracique{% elseif tag.val_mprCsScoSuiGib2Topo == "l" %}lombaire{% elseif tag.val_mprCsScoSuiGib2Topo == "tl" %}thoraco-lombaire{% elseif tag.val_mprCsScoSuiGib2Topo == "n" %}pas de gibbosité{% else %}- non renseigné -{% endif %} {% if tag.val_mprCsScoSuiGib2Lat == "g" %}gauche{% elseif tag.val_mprCsScoSuiGib2Lat == "d" %}droite{% else %}- non renseigné -{% endif %} {{ tag.mprCsScoSuiGib2MM }} mm<br>
+
+{% elseif tag.mprCsScoSuiGib1MM > 0 %}
+  <span class="gras">Gibbosité</span> : {% if tag.val_mprCsScoSuiGib1Topo == "t" %}thoracique{% elseif tag.val_mprCsScoSuiGib1Topo == "l" %}lombaire{% elseif tag.val_mprCsScoSuiGib1Topo == "tl" %}thoraco-lombaire{% elseif tag.val_mprCsScoSuiGib1Topo == "n" %}pas de gibbosité{% else %}- non renseigné -{% endif %} {% if tag.val_mprCsScoSuiGib1Lat == "g" %}gauche{% elseif tag.val_mprCsScoSuiGib1Lat == "d" %}droite{% else %}- non renseigné -{% endif %} {{ tag.mprCsScoSuiGib1MM }} mm<br>
+{% else %}
+  <span class="gras">Gibbosité</span> : pas de gibbosité retrouvée
+{% endif %}
+</p>
+
+<h2>Examen radiographique</h2>
+{% if tag.mprCsScoSuiRisser is not empty %}<p><span class="gras">Score de Risser</span> : {{ tag.mprCsScoSuiRisser }}</p>{% endif %}
+
+{% if tag.mprCsScoSuiCourb1Cobb is empty or tag.mprCsScoSuiCourb1Cobb == 0  %}<p>Pas de courbure retrouvée à la radiographie</p>{% endif %}
+
+<br>
+{% if tag.mprCsScoSuiCourb1Cobb > 0 %}
+<div style="width : 30%; display: inline-block;">
+<span class="gras">Courbure {% if tag.mprCsScoSuiCourb2Cobb is not empty %}n°1 :{% endif %}</span><br>
+- Vertèbres limites : {{ tag.mprCsScoSuiCourb1VerLiSup }} - {{ tag.mprCsScoSuiCourb1VerLiInf }}<br>
+- Vertèbre sommet : {{ tag.mprCsScoSuiCourb1VerSo }}<br>
+- Convexité : {% if tag.val_mprCsScoSuiCourb1Convex == "g" %}gauche{% elseif tag.val_mprCsScoSuiCourb1Convex == "d" %}droite{% else %}- non renseigné -{% endif %}<br>
+- Rotation : {{ tag.mprCsScoSuiCourb1Rot }}<br>
+- Angle de Cobb : {{ tag.mprCsScoSuiCourb1Cobb }}°
+</div>
+{% endif %}
+
+{% if tag.mprCsScoSuiCourb2Cobb > 0 %}
+<div style="width : 30%; display: inline-block;">
+<span class="gras">Courbure n°2</span> :<br>
+- Vertèbres limites : {{ tag.mprCsScoSuiCourb2VerLiSup }} - {{ tag.mprCsScoSuiCourb2VerLiInf }}<br>
+- Vertèbre sommet : {{ tag.mprCsScoSuiCourb2VerSo }}<br>
+- Convexité : {% if tag.val_mprCsScoSuiCourb2Convex == "g" %}gauche{% elseif tag.val_mprCsScoSuiCourb2Convex == "d" %}droite{% else %}- non renseigné -{% endif %}<br>
+- Rotation : {{ tag.mprCsScoSuiCourb2Rot }}<br>
+- Angle de Cobb : {{ tag.mprCsScoSuiCourb2Cobb }}°
+</div>
+{% endif %}
+
+{% if tag.mprCsScoSuiCourb3Cobb > 0 %}
+<div style="width : 30%; display: inline-block;">
+<span class="gras">Courbure n°3</span> : <br>
+- Vertèbres limites : {{ tag.mprCsScoSuiCourb3VerLiSup }} - {{ tag.mprCsScoSuiCourb3VerLiInf }}<br>
+- Vertèbre sommet : {{ tag.mprCsScoSuiCourb3VerSo }}<br>
+- Convexité : {% if tag.val_mprCsScoSuiCourb3Convex == "g" %}gauche{% elseif tag.val_mprCsScoSuiCourb3Convex == "d" %}droite{% else %}- non renseigné -{% endif %}<br>
+- Rotation : {{ tag.mprCsScoSuiCourb3Rot }}<br>
+- Angle de Cobb : {{ tag.mprCsScoSuiCourb3Cobb }}°
+</div>
+{% endif %}
+
+{% if tag.mprCsScoSuiCompRx is not empty %}
+<p>
+<span class="gras">Éléments radiographiques complémentaires</span> :<br>
+{{ tag.mprCsScoSuiCompRx|nl2br }}</p>
+{% endif %}
+
+<h2>Conclusion</h2>
+<p>{{ tag.mprCsScoSuiConclusion|nl2br }}</p>
+
+<br>
+<p style="text-align:right">{{ tag.UtilisateurActif_identiteUsuelleTitre }}</p>
