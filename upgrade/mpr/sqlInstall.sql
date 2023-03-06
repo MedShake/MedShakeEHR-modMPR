@@ -264,4 +264,4 @@ INSERT IGNORE INTO `forms` (`module`, `internalName`, `name`, `description`, `da
 
 -- system
 INSERT IGNORE INTO `system` (`name`, `groupe`, `value`) VALUES
-('mpr', 'module', 'v0.0.1');
+('mpr', 'module', 'v0.0.2');

@@ -1,8 +1,8 @@
-nom: 'Médecine Physique et de Réadaptation'
+nom: "Médecine Physique et de Réadaptation"
 auteurs:
-  'Bertrand Boutillier': 'https://www.medshake.net/membre/1/'
-  'Guillaume Moreau': ''
-licence: 'GPL v3'
-description: 'Module MedShakeEHR pour la pratique de le M.P.R. libérale'
-documentation: ''
-sources: ''
+  "Bertrand Boutillier": "https://www.medshake.net/membre/1/"
+  "Guillaume Moreau": ""
+licence: "GPL v3"
+description: "Module MedShakeEHR pour la pratique de le M.P.R. libérale"
+documentation: "https://www.logiciel-cabinet-medical.fr/discipline/modules-medicaux/mpr-rhumatologie-medecine-du-sport/"
+sources: "https://github.com/MedShake/MedShakeEHR-modMPR"
