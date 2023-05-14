@@ -42,40 +42,38 @@ class msModMprDataCourrier
    * @param  array $d         tableau de tags
    * @return void
    */
-    public static function getCrDataCompleteModule(&$d) {
+  public static function getCrDataCompleteModule(&$d)
+  {
 
-      //atcd du patient (data du formulaire latéral)
-      $atcd = new msCourrier();
-      $atcd = $atcd->getExamenData($d['patientID'], 'mprATCD', 0);
-      if(is_array($atcd)) {
-        foreach($atcd as $k=>$v) {
-          if(!in_array($k, array_keys($d))) $d[$k]=$v;
-        }
+    //atcd du patient (data du formulaire latéral)
+    $atcd = new msCourrier();
+    $atcd = $atcd->getExamenData($d['patientID'], 'mprATCD', 0);
+    if (is_array($atcd)) {
+      foreach ($atcd as $k => $v) {
+        if (!in_array($k, array_keys($d))) $d[$k] = $v;
       }
-      // résoudre le problème de l'IMC
-      unset($d['imc']);
-      if(isset($d['poids'],$d['taillePatient'])) $d['imc']=msModBaseCalcMed::imc($d['poids'],$d['taillePatient']);
-
     }
+    // résoudre le problème de l'IMC
+    unset($d['imc']);
+    if (isset($d['poids'], $d['taillePatient'])) $d['imc'] = msModBaseCalcMed::imc($d['poids'], $d['taillePatient']);
+  }
 
   /**
    * Extraction complémentaire pour le modèle de courrier CR de dernière consultation
    * @param  array $d tableau des tags
    * @return void
    */
-    public static function getCourrierDataCompleteModuleModele_mprModeleCourrierCrConsultation(&$d)
-    {
+  public static function getCourrierDataCompleteModuleModele_mprModeleCourrierCrConsultation(&$d)
+  {
 
-      $name2typeID = new msData();
-      $name2typeID = $name2typeID->getTypeIDsFromName(['mprConsultation']);
+    $name2typeID = new msData();
+    $name2typeID = $name2typeID->getTypeIDsFromName(['mprConsultation']);
 
-      if($cons=msSQL::sqlUnique("select id, creationDate from objets_data where toID='".$d['patientID']."'  and typeID='".$name2typeID['mprConsultation']."' and deleted='' and outdated='' order by id desc limit 1 ")) {
-        $d['dateMprConsultation'] = $cons['creationDate'];
+    if ($cons = msSQL::sqlUnique("SELECT id, creationDate from objets_data where toID = :patientID and typeID = :mprConsultation and deleted='' and outdated='' order by id desc limit 1 ", ['patientID' => $d['patientID'], 'mprConsultation' => $name2typeID['mprConsultation']])) {
+      $d['dateMprConsultation'] = $cons['creationDate'];
 
-        $data = new msCourrier();
-        $d=$d+$data->getExamenData($d['patientID'], 'mprCsStandard', $cons['id']);
-      }
-
+      $data = new msCourrier();
+      $d = $d + $data->getExamenData($d['patientID'], 'mprCsStandard', $cons['id']);
     }
-
+  }
 }
